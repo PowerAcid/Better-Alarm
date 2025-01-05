@@ -7,9 +7,34 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showSplashScreen = true
+   
     var body: some View {
-        Text("Welcome to Better Alarm!")
-            .font(.title)
-            .padding()
+        ZStack {
+            
+//Main View of App
+            
+            MainView()
+            
+//Splash Screen if showsplashscreen true
+
+            if showSplashScreen {
+                SplashScreen()
+                    .transition(.opacity)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                            withAnimation{
+                                showSplashScreen = false
+                                
+                            }
+                        }
+                    }
+            }
+            
+        }
     }
+}
+#Preview {
+    ContentView()
+
 }
